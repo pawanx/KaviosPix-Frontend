@@ -382,7 +382,7 @@ const Auth = () => {
         {/* Google Button */}
         <div className="mt-3">
           <GoogleLogin
-            className="rounded-4 w-100"
+            className="d-flex justify-content-center mt-4"
             onSuccess={handleGoogleSuccess}
             onError={() => {
               console.log("Google Login Failed");
