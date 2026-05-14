@@ -540,8 +540,8 @@ const AlbumDetails = () => {
 
                 {/* BODY */}
                 <div className="card-body text-light">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h6>{image.name.slice(0, 30)}</h6>
+                  <div className="d-flex justify-content-between align-items-start gap-2">
+                    <h6>{image.name.slice(0, 20)}</h6>
                     {isOwner && (
                       <button
                         className="btn btn-sm"

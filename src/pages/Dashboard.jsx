@@ -505,15 +505,28 @@ SEARCH FILTER
                 )}
 
                 {/* ALBUM GRID */}
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                  <h3 className="fw-bold mb-0">
-                    {activeSection === "albums" && "My Albums"}
+                {displayedAlbums.length > 0 && (
+                  <>
+                    {/* ALBUM GRID */}
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <h3 className="fw-bold mb-0">
+                        {activeSection === "albums" && "My Albums"}
 
-                    {activeSection === "shared" && "Shared Albums"}
+                        {activeSection === "shared" && "Shared Albums"}
 
-                    {activeSection === "dashboard" && "All Albums"}
-                  </h3>
-                </div>
+                        {activeSection === "dashboard" && "All Albums"}
+                      </h3>
+                    </div>
+
+                    <div className="row g-4">
+                      {displayedAlbums.map((album) => (
+                        <div className="col-md-6 col-xl-3" key={album.albumId}>
+                          {/* existing card */}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
 
                 <div className="row g-4">
                   {displayedAlbums.map((album) => (

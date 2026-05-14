@@ -99,21 +99,13 @@ const Auth = () => {
         },
       );
 
-      /*
-    ========================================
-    Save Auth
-    ========================================
-    */
+      // SAve auth
 
       localStorage.setItem("token", response.data.token);
 
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      /*
-    ========================================
-    Redirect
-    ========================================
-    */
+      //redirec tto dashboard
 
       navigate("/dashboard");
     } catch (error) {
@@ -388,18 +380,6 @@ const Auth = () => {
             }}
           />
         </div>
-        {/* <button
-          className="btn btn-light w-100 fw-semibold py-1 d-flex align-items-center justify-content-center gap-2"
-          style={{
-            background: "white",
-            color: "#111",
-            borderRadius: "12px",
-            transition: "0.3s ease",
-          }}
-        >
-          <Google size={16} />
-          Continue with Google
-        </button> */}
       </div>
     </div>
   );
