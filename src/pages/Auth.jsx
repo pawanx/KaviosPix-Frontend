@@ -383,6 +383,7 @@ const Auth = () => {
         <div className="mt-3">
           <GoogleLogin
             className="d-flex justify-content-center mt-4"
+            style={{ width: "100%" }}
             onSuccess={handleGoogleSuccess}
             onError={() => {
               console.log("Google Login Failed");
