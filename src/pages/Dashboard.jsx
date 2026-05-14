@@ -211,6 +211,7 @@ SEARCH FILTER
       className="min-vh-100 text-light"
       style={{
         background: "linear-gradient(135deg, #0f172a, #111827, #050505)",
+        fontFamily: "Inter, sans-serif",
       }}
     >
       {/* NAVBAR */}
@@ -220,6 +221,9 @@ SEARCH FILTER
           background: "rgba(255,255,255,0.05)",
           backdropFilter: "blur(14px)",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
         }}
       >
         <div className="container-fluid">
@@ -517,14 +521,6 @@ SEARCH FILTER
                         {activeSection === "dashboard" && "All Albums"}
                       </h3>
                     </div>
-
-                    <div className="row g-4">
-                      {displayedAlbums.map((album) => (
-                        <div className="col-md-6 col-xl-3" key={album.albumId}>
-                          {/* existing card */}
-                        </div>
-                      ))}
-                    </div>
                   </>
                 )}
 
@@ -539,8 +535,17 @@ SEARCH FILTER
                           borderRadius: "24px",
                           overflow: "hidden",
                           backdropFilter: "blur(12px)",
-                          transition: "0.3s ease",
+                          transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
                           cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-8px)";
+                          e.currentTarget.style.boxShadow =
+                            "0 20px 40px rgba(0,0,0,0.35)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0)";
+                          e.currentTarget.style.boxShadow = "none";
                         }}
                       >
                         {/* COVER */}
