@@ -81,7 +81,14 @@ const ShareModal = ({
             onChange={handleSelection}
             placeholder="Search users..."
             className="text-dark"
+            menuPortalTarget={document.body}
+            menuPosition="fixed"
             styles={{
+              menuPortal: (base) => ({
+                ...base,
+                zIndex: 99999,
+              }),
+
               control: (base) => ({
                 ...base,
                 background: "rgba(255,255,255,0.05)",
