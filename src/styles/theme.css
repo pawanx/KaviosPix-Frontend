@@ -1,0 +1,80 @@
+/* ========================================
+GLOBAL BODY
+======================================== */
+
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================
+DARK THEME
+======================================== */
+
+body.dark-theme {
+  background: #020617;
+  color: white;
+}
+
+body.dark-theme .glass-card,
+body.dark-theme .stats-card,
+body.dark-theme .album-card,
+body.dark-theme .profile-card,
+body.dark-theme .dashboard-sidebar,
+body.dark-theme .auth-card {
+  background: rgba(17, 25, 40, 0.72);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme .form-control {
+  background: rgba(255,255,255,0.05) !important;
+  color: white !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* ========================================
+LIGHT THEME
+======================================== */
+
+body.light-theme {
+  background: #f8fafc;
+  color: #111827;
+}
+
+body.light-theme .glass-card,
+body.light-theme .stats-card,
+body.light-theme .album-card,
+body.light-theme .profile-card,
+body.light-theme .dashboard-sidebar,
+body.light-theme .auth-card {
+  background: rgba(255,255,255,0.88);
+  color: #111827;
+  border: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(20px);
+}
+
+body.light-theme input,
+body.light-theme textarea,
+body.light-theme .form-control {
+  background: rgba(0,0,0,0.03) !important;
+  color: #111827 !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+}
+
+body.light-theme input::placeholder,
+body.light-theme textarea::placeholder {
+  color: #6b7280;
+}
+
+body.light-theme .text-secondary {
+  color: #6b7280 !important;
+}
+
+

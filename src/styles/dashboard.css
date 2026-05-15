@@ -297,3 +297,320 @@
 .profile-card {
   margin-bottom: 20px;
 }
+
+/* modal create album */
+/* MODAL */
+
+.custom-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.custom-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #111827;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.custom-modal-header {
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.custom-modal-header h5 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+}
+
+.custom-modal-body {
+  padding: 20px;
+}
+
+.custom-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.06);
+  color: white;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.custom-input::placeholder {
+  color: rgba(255,255,255,0.45);
+}
+
+.custom-modal-footer {
+  padding: 18px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.cancel-btn {
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+}
+
+.submit-btn {
+  border: none;
+  background: linear-gradient(135deg, #f6ac5c, #e4791b);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* ========================================
+THEME BUTTON
+======================================== */
+
+.dashboard-theme-btn {
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #f6ac5c, #e4791b);
+
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+
+  transition: 0.3s ease;
+
+  box-shadow: 0 8px 24px rgba(228,121,27,0.25);
+}
+
+.dashboard-theme-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ========================================
+DARK THEME
+======================================== */
+
+.dashboard-dark {
+  background:
+    linear-gradient(
+      135deg,
+      #020617,
+      #0f172a,
+      #111827
+    );
+
+  color: white;
+
+  min-height: 100vh;
+}
+
+.dashboard-dark .dashboard-navbar,
+.dashboard-dark .dashboard-sidebar,
+.dashboard-dark .stats-card,
+.dashboard-dark .album-card,
+.dashboard-dark .profile-card,
+.dashboard-dark .profile-stats-card,
+.dashboard-dark .custom-modal {
+  background: rgba(17, 25, 40, 0.72);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(24px);
+
+  color: white;
+}
+
+.dashboard-dark .sidebar-btn {
+  color: rgba(255,255,255,0.75);
+}
+
+.dashboard-dark .sidebar-btn.active {
+  background: linear-gradient(135deg,#f6ac5c,#e4791b);
+  color: white;
+}
+
+.dashboard-dark .dashboard-search input,
+.dashboard-dark .custom-input {
+  background: rgba(255,255,255,0.05);
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dashboard-dark .dashboard-search input::placeholder,
+.dashboard-dark .custom-input::placeholder {
+  color: #9ca3af;
+}
+
+/* ========================================
+LIGHT THEME
+======================================== */
+
+.dashboard-light {
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f8fafc,
+      #f1f5f9
+    );
+
+  color: #111827;
+
+  min-height: 100vh;
+}
+
+.dashboard-light .dashboard-navbar,
+.dashboard-light .dashboard-sidebar,
+.dashboard-light .stats-card,
+.dashboard-light .album-card,
+.dashboard-light .profile-card,
+.dashboard-light .profile-stats-card,
+.dashboard-light .custom-modal {
+  background: rgba(255,255,255,0.85);
+
+  border: 1px solid rgba(0,0,0,0.06);
+
+  backdrop-filter: blur(24px);
+
+  color: #111827;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.dashboard-light .sidebar-btn {
+  color: #4b5563;
+}
+
+.dashboard-light .sidebar-btn.active {
+  background: linear-gradient(135deg,#f6ac5c,#e4791b);
+  color: white;
+}
+
+.dashboard-light .dashboard-search input,
+.dashboard-light .custom-input {
+  background: rgba(0,0,0,0.03);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.dashboard-light .dashboard-search input::placeholder,
+.dashboard-light .custom-input::placeholder {
+  color: #6b7280;
+}
+
+.dashboard-light .text-secondary {
+  color: #6b7280 !important;
+}
+
+.dashboard-light .hero-section p,
+.dashboard-light .album-description {
+  color: #4b5563;
+}
+
+/* ========================================
+LOGOUT BUTTON FIX
+======================================== */
+
+.dashboard-dark .logout-btn,
+.dashboard-light .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+
+  border-radius: 14px;
+
+  border: none;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.dashboard-dark .logout-btn {
+  background: rgba(255,255,255,0.06);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dashboard-light .logout-btn {
+  background: rgba(0,0,0,0.04);
+  color: #111827;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ========================================
+ALBUM PHOTO COUNT FIX
+======================================== */
+
+.album-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.album-count {
+  position: absolute;
+
+  bottom: 12px;
+  right: 12px;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  z-index: 5;
+
+  backdrop-filter: blur(10px);
+}
+
+.dashboard-dark .album-count {
+  background: rgba(0,0,0,0.55);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dashboard-light .album-count {
+  background: rgba(255,255,255,0.75);
+  color: #111827;
+  border: 1px solid rgba(0,0,0,0.08);
+}

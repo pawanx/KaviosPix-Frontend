@@ -1,0 +1,614 @@
+
+/* ========================================
+PAGE
+======================================== */
+
+.album-page {
+  min-height: 100vh;
+  transition: 0.3s ease;
+}
+
+/* ========================================
+DARK MODE
+======================================== */
+
+.album-dark {
+  background:
+    linear-gradient(
+      135deg,
+      #020617,
+      #0f172a,
+      #111827
+    );
+
+  color: white;
+}
+
+/* ========================================
+LIGHT MODE
+======================================== */
+
+.album-light {
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f8fafc,
+      #f1f5f9
+    );
+
+  color: #111827;
+}
+
+/* ========================================
+HEADER
+======================================== */
+
+.album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 24px;
+  margin: 20px;
+
+  border-radius: 24px;
+
+  backdrop-filter: blur(24px);
+}
+
+.album-dark .album-header {
+  background: rgba(17, 25, 40, 0.72);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .album-header {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(0,0,0,0.06);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* ========================================
+BUTTONS
+======================================== */
+
+.album-back-btn,
+.share-btn,
+.upload-btn,
+.comment-btn,
+.cancel-btn {
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 14px;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.album-back-btn:hover,
+.share-btn:hover,
+.upload-btn:hover,
+.comment-btn:hover,
+.cancel-btn:hover {
+  transform: translateY(-2px);
+}
+
+.album-dark .album-back-btn,
+.album-dark .share-btn,
+.album-dark .cancel-btn {
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .album-back-btn,
+.album-light .share-btn,
+.album-light .cancel-btn {
+  background: rgba(0,0,0,0.05);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.upload-btn,
+.comment-btn {
+  background: linear-gradient(135deg,#f6ac5c,#e4791b);
+
+  color: white;
+}
+
+/* ========================================
+PILLS
+======================================== */
+
+.pill-wrapper {
+  display: flex;
+
+  padding: 6px;
+
+  border-radius: 999px;
+
+  width: fit-content;
+
+  backdrop-filter: blur(20px);
+}
+
+.album-dark .pill-wrapper {
+  background: rgba(255,255,255,0.06);
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .pill-wrapper {
+  background: rgba(255,255,255,0.85);
+
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.pill-btn {
+  border: none;
+
+  padding: 10px 22px;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+
+  background: transparent;
+}
+
+.album-dark .pill-btn {
+  color: rgba(255,255,255,0.7);
+}
+
+.album-light .pill-btn {
+  color: #4b5563;
+}
+
+.pill-btn.active {
+  background: linear-gradient(135deg,#f6ac5c,#e4791b);
+
+  color: white !important;
+}
+
+.favorite-pill.active {
+  background: linear-gradient(135deg,#ff4d6d,#ff758f);
+}
+
+/* ========================================
+IMAGE CARD
+======================================== */
+
+.image-card {
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  transition: 0.3s ease;
+
+  cursor: pointer;
+
+  height: 100%;
+
+  backdrop-filter: blur(20px);
+}
+
+.album-dark .image-card {
+  background: rgba(17, 25, 40, 0.72);
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .image-card {
+  background: rgba(255,255,255,0.82);
+
+  border: 1px solid rgba(0,0,0,0.06);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.image-card:hover {
+  transform: translateY(-6px);
+}
+
+.image-card img {
+  width: 100%;
+
+  height: 220px;
+
+  object-fit: cover;
+}
+
+.image-card .card-body {
+  padding: 18px;
+}
+
+/* ========================================
+FAVORITE BUTTON
+======================================== */
+
+.favorite-btn {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s ease;
+}
+
+.album-dark .favorite-btn {
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+}
+
+.album-light .favorite-btn {
+  background: rgba(0,0,0,0.05);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.favorite-btn.active {
+  background: linear-gradient(135deg,#ff4d6d,#ff758f) !important;
+
+  color: white !important;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.08);
+}
+
+/* ========================================
+DELETE BUTTON
+======================================== */
+
+.delete-image-btn {
+  border: none;
+
+  background: rgba(255, 2, 28, 0.8);
+
+  color: white;
+
+  padding: 8px 14px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* ========================================
+BADGES
+======================================== */
+
+.person-badge {
+  font-size: 12px;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+}
+
+.album-dark .person-badge {
+  background: rgba(5, 5, 5, 0.08);
+
+  color: #e5e7eb;
+}
+
+.album-light .person-badge {
+  background: rgba(252, 244, 244, 0.99);
+
+  color: #101010;
+}
+
+.tag-badge {
+  background: rgba(246,172,92,0.18);
+
+  color: #f6ac5c;
+}
+
+/* ========================================
+EMPTY STATE
+======================================== */
+
+.empty-state-box {
+  padding: 60px 20px;
+
+  border-radius: 24px;
+
+  text-align: center;
+
+  backdrop-filter: blur(20px);
+}
+
+.album-dark .empty-state-box {
+  background: rgba(17, 25, 40, 0.72);
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .empty-state-box {
+  background: rgba(255,255,255,0.82);
+
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* ========================================
+PREVIEW MODAL
+======================================== */
+
+.preview-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.8);
+
+  backdrop-filter: blur(8px);
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-modal {
+  width: 92%;
+
+  max-width: 1400px;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+}
+
+.album-dark .preview-modal {
+  background: #111827;
+}
+
+.album-light .preview-modal {
+  background: white;
+}
+
+.preview-image {
+  width: 100%;
+
+  height: 85vh;
+
+  object-fit: cover;
+}
+
+.preview-sidebar {
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 85vh;
+}
+
+.album-dark .preview-sidebar {
+  color: white;
+}
+
+.album-light .preview-sidebar {
+  color: #111827;
+}
+
+/* ========================================
+COMMENTS
+======================================== */
+
+.preview-comments {
+  flex-grow: 1;
+
+  overflow-y: auto;
+
+  max-height: 320px;
+}
+
+.comment-box {
+  padding: 12px;
+
+  border-radius: 14px;
+
+  margin-bottom: 10px;
+}
+
+.album-dark .comment-box {
+  background: rgba(255,255,255,0.05);
+
+  color: white;
+}
+
+.album-light .comment-box {
+  background: rgba(0,0,0,0.04);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.comment-input,
+.custom-input {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border-radius: 14px;
+
+  outline: none;
+}
+
+.album-dark .comment-input,
+.album-dark .custom-input {
+  background: rgba(255,255,255,0.05);
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .comment-input,
+.album-light .custom-input {
+  background: rgba(0,0,0,0.03);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ========================================
+CUSTOM MODAL
+======================================== */
+
+.custom-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.7);
+
+  backdrop-filter: blur(8px);
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal {
+  width: 100%;
+
+  max-width: 430px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  backdrop-filter: blur(24px);
+}
+
+.album-dark .custom-modal {
+  background: rgba(17, 25, 40, 0.96);
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.album-light .custom-modal {
+  background: rgba(255,255,255,0.96);
+
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.custom-modal-header,
+.custom-modal-footer {
+  padding: 18px 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.album-dark .custom-modal-header,
+.album-dark .custom-modal-footer {
+  border-color: rgba(255,255,255,0.08);
+}
+
+.album-light .custom-modal-header,
+.album-light .custom-modal-footer {
+  border-color: rgba(0,0,0,0.06);
+}
+
+.custom-modal-body {
+  padding: 22px;
+}
+
+/* ========================================
+CLOSE BUTTON
+======================================== */
+
+.modal-close-btn,
+.image-modal-close-btn {
+  width: 40px;
+
+  height: 40px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  transition: 0.3s ease;
+}
+
+.album-dark .modal-close-btn,
+.album-dark .image-modal-close-btn {
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+}
+
+.album-light .modal-close-btn,
+.album-light .image-modal-close-btn {
+  background: rgba(0,0,0,0.05);
+
+  color: #111827;
+
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.modal-close-btn:hover,
+.image-modal-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* ========================================
+RESPONSIVE
+======================================== */
+
+@media (max-width: 991px) {
+  .album-header {
+    flex-direction: column;
+
+    gap: 20px;
+
+    align-items: flex-start;
+  }
+
+  .preview-image {
+    height: 320px;
+  }
+
+  .preview-sidebar {
+    height: auto;
+  }
+}
+

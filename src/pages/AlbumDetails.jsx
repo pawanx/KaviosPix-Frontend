@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { useTheme } from "../context/ThemeContext";
+
+import ImageCard from "../components/ImageCard.jsx";
+import ImagePreviewModal from "../components/ImagePreviewModal";
+import UploadModal from "../components/UploadModal";
+import ShareModal from "../components/ShareModal";
+
+import "../styles/albumDetails.css";
 
 import {
   ArrowLeft,
@@ -15,6 +25,8 @@ import axiosInstance from "../api/axios";
 
 const AlbumDetails = () => {
   const navigate = useNavigate();
+
+  const { darkMode } = useTheme();
   const { albumId } = useParams();
   const [deletingImageId, setDeletingImageId] = useState(null);
 
@@ -35,6 +47,8 @@ const AlbumDetails = () => {
     tags: "",
     person: "",
   });
+
+  const [activeTab, setActiveTab] = useState("all");
 
   const [album, setAlbum] = useState(null);
 
@@ -163,6 +177,7 @@ const AlbumDetails = () => {
     */
 
       fetchAlbumDetails();
+      toast.success("Image uploaded successfully");
 
       /*
     ========================================
@@ -230,8 +245,13 @@ const AlbumDetails = () => {
             : img,
         ),
       );
+
+      toast.success(
+        currentStatus ? "Removed from favorites" : "Added to favorites",
+      );
     } catch (error) {
       console.log(error);
+      toast.error("Failed to update favorite");
     }
   };
 
@@ -270,6 +290,8 @@ const AlbumDetails = () => {
       setImages((prevImages) =>
         prevImages.filter((img) => img.imageId !== imageId),
       );
+
+      toast.success("Image deleted successfully");
 
       /*
     ========================================
@@ -382,7 +404,7 @@ const AlbumDetails = () => {
         },
       );
 
-      alert("Album shared successfully");
+      toast.success("Album shared successfully");
 
       setShareEmails("");
 
@@ -392,7 +414,7 @@ const AlbumDetails = () => {
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to share album");
+      toast.error(error.response?.data?.message || "Failed to share album");
     } finally {
       setSharing(false);
     }
@@ -443,19 +465,9 @@ const AlbumDetails = () => {
   }
 
   return (
-    <div
-      className="min-vh-100 text-light"
-      style={{
-        background: "linear-gradient(135deg, #0f172a, #111827, #050505)",
-      }}
-    >
+    <div className={`album-page ${darkMode ? "album-dark" : "album-light"}`}>
       {/* HEADER */}
-      <div
-        className="d-flex justify-content-between align-items-center p-4"
-        style={{
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
+      <div className="album-header">
         {/* LEFT */}
         <div>
           <button
@@ -498,10 +510,60 @@ const AlbumDetails = () => {
         </div>
       </div>
 
+      {/* PILLS */}
+      <div className="d-flex justify-content-center mt-4">
+        <div
+          className="d-flex p-1"
+          style={{
+            background: "rgba(255,255,255,0.06)",
+            borderRadius: "50px",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          <button
+            onClick={() => setActiveTab("all")}
+            className="btn rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2"
+            style={{
+              background:
+                activeTab === "all"
+                  ? "linear-gradient(135deg,#f6ac5c,#e4791b)"
+                  : "transparent",
+              color: activeTab === "all" ? "#fff" : "#aaa",
+              border: "none",
+              transition: "0.3s",
+            }}
+          >
+            📸 All Images
+            <span className="badge bg-dark">{images.length}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("favorites")}
+            className="btn rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 ms-2"
+            style={{
+              background:
+                activeTab === "favorites"
+                  ? "linear-gradient(135deg,#ff4d6d,#ff758f)"
+                  : "transparent",
+              color: activeTab === "favorites" ? "#fff" : "#aaa",
+              border: "none",
+              transition: "0.3s",
+            }}
+          >
+            <HeartFill />
+            Favorites
+            <span className="badge bg-dark">
+              {images.filter((img) => img.isFavorite).length}
+            </span>
+          </button>
+        </div>
+      </div>
+
       {/* IMAGES */}
       <div className="container-fluid p-4">
         {/* EMPTY STATE */}
-        {images.length === 0 && (
+        {images.length === 0 && images.length === 0 && (
           <div
             className="text-center py-5 rounded-4"
             style={{
@@ -516,522 +578,69 @@ const AlbumDetails = () => {
           </div>
         )}
 
+        {activeTab === "favorites" &&
+          images.filter((img) => img.isFavorite).length === 0 && (
+            <div
+              className="text-center py-5 rounded-4"
+              style={{
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <h3 className="mt-3">No Favorite Images</h3>
+
+              <p className="text-secondary mb-0">
+                Mark images as favorites to see them here.
+              </p>
+            </div>
+          )}
+
         {/* GRID */}
         <div className="row g-4">
-          {images.map((image) => (
-            <div className="col-md-6 col-lg-4 col-xl-3" key={image.imageId}>
-              <div
-                className="card border-0 overflow-hidden"
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  borderRadius: "24px",
-                }}
-                onClick={() => setSelectedImage(image)}
-              >
-                {/* IMAGE */}
-                <img
-                  src={image.imageUrl}
-                  alt={image.name}
-                  style={{
-                    height: "240px",
-                    objectFit: "cover",
-                  }}
-                />
-
-                {/* BODY */}
-                <div className="card-body text-light">
-                  <div className="d-flex justify-content-between align-items-start gap-2">
-                    <h6>{image.name.slice(0, 20)}</h6>
-                    {isOwner && (
-                      <button
-                        className="btn btn-sm"
-                        disabled={deletingImageId === image.imageId}
-                        style={{
-                          background: "rgba(255, 2, 28, 0.7)",
-
-                          border: "1px solid rgba(220,53,69,0.35)",
-
-                          color: "#f5f2f2",
-
-                          borderRadius: "5px",
-
-                          minWidth: "90px",
-
-                          transition: "0.25s ease",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-
-                          handleDeleteImage(image.imageId);
-                        }}
-                      >
-                        {deletingImageId === image.imageId ? (
-                          <>
-                            <span className="spinner-border spinner-border-sm me-2"></span>
-                            Deleting...
-                          </>
-                        ) : (
-                          "Delete"
-                        )}
-                      </button>
-                    )}
-
-                    {isOwner && (
-                      <button
-                        className="btn btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                        style={{
-                          width: "38px",
-                          height: "38px",
-                          background: image.isFavorite
-                            ? "rgba(220,53,69,0.18)"
-                            : "rgba(255,255,255,0.08)",
-
-                          border: image.isFavorite
-                            ? "1px solid rgba(220,53,69,0.4)"
-                            : "1px solid rgba(255,255,255,0.12)",
-
-                          transition: "0.25s ease",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-
-                          toggleFavorite(image.imageId, image.isFavorite);
-                        }}
-                      >
-                        {image.isFavorite ? (
-                          <HeartFill size={18} color="#ff4d6d" />
-                        ) : (
-                          <Heart size={18} color="#ffffff" />
-                        )}
-                      </button>
-                    )}
-                  </div>
-
-                  {/* PERSON */}
-                  {image.person && (
-                    <div className="mt-2">
-                      <small
-                        className="px-2 py-1 rounded-pill"
-                        style={{
-                          background: "rgba(255,255,255,0.08)",
-
-                          color: "#d1d5db",
-
-                          fontSize: "12px",
-                        }}
-                      >
-                        👤 {image.person}
-                      </small>
-                    </div>
-                  )}
-
-                  {/* TAGS */}
-                  <div className="mt-3 d-flex flex-wrap gap-2">
-                    {image.tags?.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="badge"
-                        style={{
-                          background: "rgba(246,172,92,0.18)",
-                          color: "#f6ac5c",
-                        }}
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* COMMENTS */}
-                  <div className="mt-3">
-                    <small className="text-secondary">
-                      {image.comments?.length || 0} comments
-                    </small>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {(activeTab === "favorites"
+            ? images.filter((img) => img.isFavorite)
+            : images
+          ).map((image) => (
+            <ImageCard
+              key={image.imageId}
+              image={image}
+              isOwner={isOwner}
+              deletingImageId={deletingImageId}
+              setSelectedImage={setSelectedImage}
+              handleDeleteImage={handleDeleteImage}
+              toggleFavorite={toggleFavorite}
+            />
           ))}
         </div>
       </div>
-      {showUploadModal && (
-        <div
-          className="modal d-block"
-          style={{
-            background: "rgba(0,0,0,0.7)",
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div
-              className="modal-content border-0 text-light"
-              style={{
-                background: "#111827",
-                borderRadius: "24px",
-              }}
-            >
-              {/* HEADER */}
-              <div className="modal-header border-secondary">
-                <h5 className="modal-title fw-bold">Upload Image</h5>
+      <UploadModal
+        showUploadModal={showUploadModal}
+        setShowUploadModal={setShowUploadModal}
+        handleUploadImage={handleUploadImage}
+        handleImageChange={handleImageChange}
+        imageData={imageData}
+        uploading={uploading}
+      />
 
-                <button
-                  className="btn-close btn-close-white"
-                  onClick={() => setShowUploadModal(false)}
-                ></button>
-              </div>
+      <ImagePreviewModal
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+        isOwner={isOwner}
+        toggleFavorite={toggleFavorite}
+        handleDeleteImage={handleDeleteImage}
+        commentInputs={commentInputs}
+        handleCommentChange={handleCommentChange}
+        handleAddComment={handleAddComment}
+      />
 
-              {/* BODY */}
-              <form onSubmit={handleUploadImage}>
-                <div className="modal-body">
-                  {/* IMAGE */}
-                  <div className="mb-3">
-                    <label className="form-label">Select Image</label>
-
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="image"
-                      onChange={handleImageChange}
-                      className="form-control"
-                      required
-                    />
-                  </div>
-
-                  {/* TAGS */}
-                  <div className="mb-3">
-                    <label className="form-label">Tags</label>
-
-                    <input
-                      type="text"
-                      name="tags"
-                      value={imageData.tags}
-                      onChange={handleImageChange}
-                      placeholder="nature,travel"
-                      className="form-control text-light border-0"
-                      style={{
-                        background: "rgba(255,255,255,0.06)",
-                      }}
-                    />
-                  </div>
-
-                  {/* PERSON */}
-                  <div className="mb-3">
-                    <label className="form-label">Person</label>
-
-                    <input
-                      type="text"
-                      name="person"
-                      value={imageData.person}
-                      onChange={handleImageChange}
-                      placeholder="Tagged person"
-                      className="form-control text-light border-0"
-                      style={{
-                        background: "rgba(255,255,255,0.06)",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* FOOTER */}
-                <div className="modal-footer border-secondary">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => setShowUploadModal(false)}
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    type="submit"
-                    className="btn text-light"
-                    style={{
-                      background: "linear-gradient(135deg, #f6ac5c, #e4791b)",
-                      border: "none",
-                    }}
-                  >
-                    {uploading ? "Uploading..." : "Upload Image"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {selectedImage && (
-        <div
-          className="modal d-block"
-          onClick={() => setSelectedImage(null)}
-          style={{
-            background: "rgba(0,0,0,0.88)",
-            backdropFilter: "blur(8px)",
-            zIndex: 9999,
-          }}
-        >
-          <div className="modal-dialog modal-xl modal-dialog-centered">
-            <div
-              className="modal-content border-0 overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                background: "#111827",
-                borderRadius: "28px",
-              }}
-            >
-              <div className="row g-0">
-                {/* IMAGE */}
-                <div className="col-lg-8">
-                  <img
-                    src={selectedImage.imageUrl}
-                    alt={selectedImage.name}
-                    className="w-100 h-100"
-                    style={{
-                      objectFit: "cover",
-                      maxHeight: "85vh",
-                    }}
-                  />
-                </div>
-
-                {/* DETAILS */}
-                <div className="col-lg-4 text-light">
-                  <div className="p-4 d-flex flex-column h-100">
-                    {/* HEADER */}
-                    <div className="d-flex justify-content-between align-items-start mb-4">
-                      <div>
-                        <h4
-                          className="fw-bold mb-1"
-                          style={{
-                            wordBreak: "break-word",
-                            lineHeight: "1.4",
-                          }}
-                        >
-                          {selectedImage.name}
-                        </h4>
-
-                        <small className="text-secondary">
-                          {selectedImage.size} bytes
-                        </small>
-                      </div>
-
-                      <button
-                        className="btn-close btn-close-white"
-                        onClick={() => setSelectedImage(null)}
-                      ></button>
-                    </div>
-
-                    {/* PERSON */}
-                    {selectedImage.person && (
-                      <div className="mb-3">
-                        <span
-                          className="px-3 py-2 rounded-pill"
-                          style={{
-                            background: "rgba(255,255,255,0.08)",
-
-                            color: "#e5e7eb",
-
-                            fontSize: "14px",
-                          }}
-                        >
-                          👤 {selectedImage.person}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* TAGS */}
-                    <div className="mb-4 d-flex flex-wrap gap-2">
-                      {selectedImage.tags?.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="badge"
-                          style={{
-                            background: "rgba(246,172,92,0.18)",
-                            color: "#f6ac5c",
-                          }}
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* ACTIONS */}
-                    <div className="d-flex gap-2 mb-4">
-                      {/* Favorite */}
-                      {isOwner && (
-                        <button
-                          className="btn d-flex align-items-center justify-content-center"
-                          style={{
-                            width: "44px",
-                            height: "44px",
-
-                            background: selectedImage.isFavorite
-                              ? "rgba(220,53,69,0.18)"
-                              : "rgba(255,255,255,0.08)",
-
-                            border: selectedImage.isFavorite
-                              ? "1px solid rgba(220,53,69,0.4)"
-                              : "1px solid rgba(255,255,255,0.12)",
-                          }}
-                          onClick={() =>
-                            toggleFavorite(
-                              selectedImage.imageId,
-                              selectedImage.isFavorite,
-                            )
-                          }
-                        >
-                          {selectedImage.isFavorite ? (
-                            <HeartFill size={20} color="#ff4d6d" />
-                          ) : (
-                            <Heart size={20} color="#ffffff" />
-                          )}
-                        </button>
-                      )}
-
-                      {/* Delete */}
-
-                      {isOwner && (
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => {
-                            handleDeleteImage(selectedImage.imageId);
-
-                            setSelectedImage(null);
-                          }}
-                        >
-                          Delete
-                        </button>
-                      )}
-                    </div>
-
-                    {/* COMMENTS */}
-                    <div
-                      className="flex-grow-1 overflow-auto"
-                      style={{
-                        maxHeight: "300px",
-                      }}
-                    >
-                      <h6 className="fw-bold mb-3">Comments</h6>
-
-                      {selectedImage.comments?.length === 0 && (
-                        <p className="text-secondary small">No comments yet.</p>
-                      )}
-
-                      {selectedImage.comments?.map((comment, index) => (
-                        <div
-                          key={index}
-                          className="mb-2 p-2 rounded"
-                          style={{
-                            background: "rgba(255,255,255,0.05)",
-                          }}
-                        >
-                          {comment}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* ADD COMMENT */}
-                    <div className="mt-4 d-flex gap-2">
-                      <input
-                        type="text"
-                        placeholder="Add comment..."
-                        value={commentInputs[selectedImage.imageId] || ""}
-                        onChange={(e) =>
-                          handleCommentChange(
-                            selectedImage.imageId,
-
-                            e.target.value,
-                          )
-                        }
-                        className="form-control text-light border-0"
-                        style={{
-                          background: "rgba(255,255,255,0.06)",
-                        }}
-                      />
-
-                      <button
-                        className="btn text-light"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #f6ac5c, #e4791b)",
-                          border: "none",
-                        }}
-                        onClick={() => handleAddComment(selectedImage.imageId)}
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showShareModal && (
-        <div
-          className="modal d-block"
-          style={{
-            background: "rgba(0,0,0,0.7)",
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div
-              className="modal-content border-0 text-light"
-              style={{
-                background: "#111827",
-                borderRadius: "24px",
-              }}
-            >
-              {/* HEADER */}
-              <div className="modal-header border-secondary">
-                <h5 className="modal-title fw-bold">Share Album</h5>
-
-                <button
-                  className="btn-close btn-close-white"
-                  onClick={() => setShowShareModal(false)}
-                ></button>
-              </div>
-
-              {/* BODY */}
-              <div className="modal-body">
-                <label className="form-label">User Email</label>
-
-                <input
-                  type="text"
-                  value={shareEmails}
-                  onChange={(e) => setShareEmails(e.target.value)}
-                  placeholder="Enter email seperated by comas"
-                  className="form-control text-light border-0"
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                  }}
-                />
-              </div>
-
-              {/* FOOTER */}
-              <div className="modal-footer border-secondary">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowShareModal(false)}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="btn text-light"
-                  style={{
-                    background: "linear-gradient(135deg, #f6ac5c, #e4791b)",
-                    border: "none",
-                  }}
-                  onClick={handleShareAlbum}
-                >
-                  {sharing ? "Sharing..." : "Share Album"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <ShareModal
+        showShareModal={showShareModal}
+        setShowShareModal={setShowShareModal}
+        shareEmails={shareEmails}
+        setShareEmails={setShareEmails}
+        handleShareAlbum={handleShareAlbum}
+        sharing={sharing}
+      />
     </div>
   );
 };

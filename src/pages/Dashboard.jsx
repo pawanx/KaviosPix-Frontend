@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import "../styles/dashboard.css"
+import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 import {
   BoxArrowRight,
   GridFill,
@@ -21,6 +23,8 @@ const Dashboard = () => {
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const navigate = useNavigate();
+
+  const { darkMode, setDarkMode } = useTheme();
 
   const [activeSection, setActiveSection] = useState("dashboard");
 
@@ -56,6 +60,7 @@ const Dashboard = () => {
       setAlbums(response.data.albums);
     } catch (error) {
       console.log(error);
+      toast.error("Failed to fetch albums");
 
       setError(error.response.data.message || "Failed to fetch albums");
     } finally {
@@ -66,7 +71,11 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/";
+    toast.success("Logged out successfully");
+    
+      setTimeout(() => {
+         window.location.href = "/";
+        }, 1200);
   };
 
   const handleAlbumChange = (e) => {
@@ -126,8 +135,13 @@ const Dashboard = () => {
     */
 
       setShowModal(false);
+      toast.success("Album created successfully");
     } catch (error) {
       console.log(error);
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to create album"
+);
     } finally {
       setCreatingAlbum(false);
     }
@@ -163,10 +177,14 @@ const Dashboard = () => {
     */
 
       setAlbums((prev) => prev.filter((album) => album.albumId !== albumId));
+      toast.success("Album deleted");
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to delete album");
+     toast.error(
+          error.response?.data?.message ||
+         "Failed to delete album"
+        );
     } finally {
       setDeletingAlbumId(null);
     }
@@ -208,7 +226,11 @@ SEARCH FILTER
     fetchAlbums();
   }, []);
   return (
-    <div className="dashboard-page">
+    <div
+  className={`dashboard-page ${
+    darkMode ? "dashboard-dark" : "dashboard-light"
+  }`}
+>
   {/* NAVBAR */}
   <nav className="dashboard-navbar">
     <div className="container-fluid">
@@ -241,7 +263,12 @@ SEARCH FILTER
           >
             + Album
           </button>
-
+          <button
+  className="dashboard-theme-btn"
+  onClick={() => setDarkMode(!darkMode)}
+>
+  {darkMode ? "☀️" : "🌙"}
+</button>
           <button onClick={handleLogout} className="logout-btn">
             <BoxArrowRight size={18} />
             Logout
@@ -456,6 +483,84 @@ SEARCH FILTER
       </div>
     </div>
   </div>
+  {/* CREATE ALBUM MODAL */}
+
+{showModal && (
+  <div className="custom-modal-backdrop">
+    <div className="custom-modal">
+      
+      {/* HEADER */}
+      <div className="custom-modal-header">
+        <h5>Create New Album</h5>
+
+        <button
+          className="modal-close-btn"
+          onClick={() => setShowModal(false)}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* FORM */}
+      <form onSubmit={handleCreateAlbum}>
+        <div className="custom-modal-body">
+          
+          {/* NAME */}
+          <div className="mb-3">
+            <label className="form-label">
+              Album Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              value={albumData.name}
+              onChange={handleAlbumChange}
+              placeholder="Enter album name"
+              className="custom-input"
+              required
+            />
+          </div>
+
+          {/* DESCRIPTION */}
+          <div className="mb-3">
+            <label className="form-label">
+              Description
+            </label>
+
+            <textarea
+              name="description"
+              value={albumData.description}
+              onChange={handleAlbumChange}
+              placeholder="Write something..."
+              rows="4"
+              className="custom-input"
+            />
+          </div>
+        </div>
+
+        {/* FOOTER */}
+        <div className="custom-modal-footer">
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={() => setShowModal(false)}
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={creatingAlbum}
+          >
+            {creatingAlbum ? "Creating..." : "Create Album"}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
 </div>
   );
 };
