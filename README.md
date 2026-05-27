@@ -95,19 +95,19 @@ npm run dev
 
 ## Dashboard
 
-![Dashboard](./assets/kavios_pix_dash.jpg)
+![Login](./assets/login.jpg)
 
 ---
 
 ## Upload Interface
 
-![Upload](./assets/kavios_pix_upload.jpg)
+![Dashboard](./assets/kavios_dash.jpg)
 
 ---
 
 ## Gallery View
 
-![Gallery](./assets/kavios_pix_gallery.jpg)
+![Gallery](./assets/gallery.jpg)
 
 ---
 
