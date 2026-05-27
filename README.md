@@ -1,16 +1,227 @@
-# React + Vite
+# KaviosPix - AI Powered Photo Management Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack photo management application that allows users to securely upload, organize, manage, and access media assets with cloud-based storage and authentication.
 
-Currently, two official plugins are available:
+Built with a React frontend, Node.js/Express backend, MongoDB database, and Cloudinary for media hosting.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Demo Link
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+[Live Demo](https://kavios-pix-frontend-one.vercel.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Quick Start
+
+```bash
+git clone https://github.com/pawanx/KaviosPix-Frontend.git
+cd KaviosPix-Frontend
+npm install
+npm run dev
+```
+
+---
+
+## Technologies
+
+- React JS
+- React Router
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+- Cloudinary
+- Bootstrap
+- Axios
+
+---
+
+## Features
+
+## Authentication
+
+- Secure user registration and login
+- JWT-based authentication
+- Protected routes
+- Persistent login sessions
+
+---
+
+## Dashboard
+
+- Personalized media dashboard
+- View uploaded images in a clean gallery layout
+- Quick access to all uploaded assets
+
+---
+
+## Media Upload
+
+- Upload photos securely to cloud storage
+- Drag-and-drop / file selection support
+- Real-time upload feedback
+
+---
+
+## Photo Management
+
+- View full-size media assets
+- Delete uploaded files
+- Organize and manage uploaded photos efficiently
+
+---
+
+## Cloud Storage Integration
+
+- Media hosted using Cloudinary
+- Fast image delivery
+- Optimized asset rendering
+
+---
+
+## Responsive UI
+
+- Mobile-friendly interface
+- Clean dashboard layout
+- Smooth user experience across devices
+
+---
+
+## Screenshots
+
+## Dashboard
+
+![Dashboard](./assets/kavios_pix_dash.jpg)
+
+---
+
+## Upload Interface
+
+![Upload](./assets/kavios_pix_upload.jpg)
+
+---
+
+## Gallery View
+
+![Gallery](./assets/kavios_pix_gallery.jpg)
+
+---
+
+## API References
+
+### **POST /api/auth/register**
+
+Register a new user
+
+Sample Response:
+
+```json
+{
+  "message": "User registered successfully",
+  "token": "jwt_token"
+}
+```
+
+---
+
+### **POST /api/auth/login**
+
+Authenticate existing user
+
+Sample Response:
+
+```json
+{
+  "message": "Login successful",
+  "token": "jwt_token"
+}
+```
+
+---
+
+### **POST /api/upload**
+
+Upload media file
+
+Sample Response:
+
+```json
+{
+  "message": "File uploaded successfully",
+  "url": "https://cloudinary.com/image-url"
+}
+```
+
+---
+
+### **GET /api/photos**
+
+Fetch all uploaded photos
+
+Sample Response:
+
+```json
+[
+  {
+    "_id": "12345",
+    "url": "https://cloudinary.com/image-url",
+    "createdAt": "2026-05-27"
+  }
+]
+```
+
+---
+
+### **DELETE /api/photos/:id**
+
+Delete uploaded photo
+
+Sample Response:
+
+```json
+{
+  "message": "Photo deleted successfully"
+}
+```
+
+---
+
+## Project Architecture
+
+Frontend:
+- React
+- Routing
+- State Management
+- API Integration
+
+Backend:
+- Express Server
+- Authentication Middleware
+- Cloudinary Integration
+- MongoDB Models
+
+Database:
+- MongoDB Atlas
+
+---
+
+## Future Improvements
+
+- Folder-based photo organization
+- AI-powered image tagging
+- Search by metadata
+- Bulk uploads
+- Shareable media links
+
+---
+
+## Contact
+
+For bugs, collaboration, or feature requests:
+
+📧 **Email:** pawanmishra196@gmail.com
+
+🔗 **Portfolio:** https://portfolio-pawanx.vercel.app
+
+💼 **LinkedIn:** https://www.linkedin.com/in/pawan-mishra-08b3b9133/
