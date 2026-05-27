@@ -34,6 +34,7 @@ npm run dev
 - Cloudinary
 - Bootstrap
 - Axios
+- Google Auth
 
 ---
 
@@ -50,23 +51,24 @@ npm run dev
 
 ## Dashboard
 
-- Personalized media dashboard
+- Personalized media dashboard with images, albums statistics.
 - View uploaded images in a clean gallery layout
 - Quick access to all uploaded assets
+- See shared albums by others
 
 ---
 
 ## Media Upload
 
 - Upload photos securely to cloud storage
-- Drag-and-drop / file selection support
-- Real-time upload feedback
+- Feature to tag person or add tags based on photos.
+- Share the album with other users on the app.
 
 ---
 
 ## Photo Management
 
-- View full-size media assets
+- Modal to view full-size media assets
 - Delete uploaded files
 - Organize and manage uploaded photos efficiently
 
@@ -85,6 +87,7 @@ npm run dev
 - Mobile-friendly interface
 - Clean dashboard layout
 - Smooth user experience across devices
+- Smooth dark mode intergration.
 
 ---
 
@@ -208,11 +211,8 @@ Database:
 
 ## Future Improvements
 
-- Folder-based photo organization
 - AI-powered image tagging
-- Search by metadata
 - Bulk uploads
-- Shareable media links
 
 ---
 
