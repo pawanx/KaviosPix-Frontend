@@ -195,7 +195,7 @@ Sample Response:
 
 ---
 
-### ** DELETE /api/album/:albumId**
+### **DELETE /api/album/:albumId**
 
 Delete existing album
 
