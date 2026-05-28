@@ -143,49 +143,77 @@ Sample Response:
 
 ---
 
-### **POST /api/upload**
+### **POST /api/album**
 
-Upload media file
+Create new album
 
 Sample Response:
 
 ```json
-{
-  "message": "File uploaded successfully",
-  "url": "https://cloudinary.com/image-url"
+{ 
+  "_id" : "507f1f77bcf86cd799439011",
+  "name": "Vacation",
+  "description": "Album for goa vacation",
+  "ownerId" : "897f1f77bcf86cd7994367897"
 }
 ```
 
 ---
 
-### **GET /api/photos**
+### **GET /api/album**
 
-Fetch all uploaded photos
+Fetch all albums
 
 Sample Response:
 
 ```json
 [
   {
-    "_id": "12345",
-    "url": "https://cloudinary.com/image-url",
-    "createdAt": "2026-05-27"
+   "_id" : "507f1f77bcf86cd799439011",
+  "name": "Vacation",
+  "description": "Album for goa vacation",
+   "ownerId" : "897f1f77bcf86cd7994367897",
+   "sharedUsers" : ["xyz@example.com"]
   }
 ]
 ```
 
 ---
 
-### **DELETE /api/photos/:id**
+### **GET /api/album/:albumId/share**
 
-Delete uploaded photo
+Share existing album
 
 Sample Response:
 
 ```json
 {
-  "message": "Photo deleted successfully"
+  "success": true,
+  "message" : "Album shared successfully"
 }
+```
+
+---
+### **POST /api/album/:albumId/images**
+
+Upload new image
+
+Sample Response:
+
+```json
+{
+  "_id" : "657f1f77bcf86cd799439011",
+  "album_id" : "7867f77bcf86cd79943765856",
+  "image_id" : "5456rgdft56565",
+  "name" : "sunset",
+  "tags" : ["sunset","nature"],
+  "person" : "John",
+  "isFavourite" : false,
+  "comments" : ["Nice", "Good"],
+  "size" : 34235,
+  "imageUrl" : "https://cloudinary.com/image-url"
+}
+
 ```
 
 ---
