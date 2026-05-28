@@ -194,6 +194,27 @@ Sample Response:
 ```
 
 ---
+
+### ** DELETE /api/album/:albumId**
+
+Delete existing album
+
+```json
+
+{
+  "success" : true,
+  "message"  : "album deleted successfully.",
+  "deletedAlbum" : {
+    "_id" : "3242greberbrth45353",
+    "name" : "vacation",
+    "description": "Album for goa vacation",
+  } 
+}
+
+```
+
+---
+
 ### **POST /api/album/:albumId/images**
 
 Upload new image
@@ -212,6 +233,23 @@ Sample Response:
   "comments" : ["Nice", "Good"],
   "size" : 34235,
   "imageUrl" : "https://cloudinary.com/image-url"
+}
+
+```
+
+---
+
+### **GET /:albumId/images/:imageId/favorite**
+
+favourite/unfavourite an image
+
+Sample Response:
+
+```json
+{
+  "success" : true,
+  "message" : "favourite status updated",
+  "isFavourite" : true
 }
 
 ```
